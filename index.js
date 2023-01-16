@@ -31,7 +31,7 @@ app.get("/customers", async (req,res)=>{
     let conn
     try {
         conn = await pool.getConnection()
-        const rows = await conn.query("SELECT firstname, lastname FROM customers")
+        const rows = await conn.query("SELECT id, CONCAT(firstname,' ',lastname) As name FROM customers")
         res.send(JSON.stringify(rows))
     } catch (error) {
         console.log(error)
