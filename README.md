@@ -4,7 +4,7 @@
 
 ## Description
 
-## This is a school project for Distributed software development.
+This is a school project for Distributed software development.
 
 
 The aim of the project is to create an API for the cinema, which will contain a list of films, their descriptions and movie tickets. 
