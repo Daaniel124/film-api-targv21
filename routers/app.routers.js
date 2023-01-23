@@ -5,16 +5,16 @@ module.exports = (app)=>{
     app.route("/films")
     .get(filmsController.getAll)
 /*    .post(filmsController.createNew)    //Create
-    app.ruote("/films/:id")
+    app.route("/films/:id")
     .get(filmsController.getById)       //Read
     .put(filmsController.updateById)    //Update
     .delete(filmsController.deleteById) //Delete*/
 
     app.route("/tickets")
     .get(ticketsController.getAll)
-/*    .post(ticketsController.createNew)    //Create
-    app.ruote("/tickets/:id")
+    .post(ticketsController.createNew)    //Create
+    app.route("/tickets/:id")
     .get(ticketsController.getById)       //Read
     .put(ticketsController.updateById)    //Update
-    .delete(ticketsController.deleteById) //Delete*/
+    .delete(ticketsController.deleteById) //Delete
 }
