@@ -26,7 +26,7 @@ require("./routers/app.routers.js")(app)
     })
 })*/
 
-app.get("/customers", async (req,res)=>{
+/*app.get("/customers", async (req,res)=>{
     let conn
     try {
         conn = await pool.getConnection()
@@ -52,6 +52,20 @@ app.get("/films", async(req,res)=>{
     }
 })
 
-app.listen(port,()=>{
+app.get("/tickets", async (req,res)=>{
+    let conn
+    try {
+        conn = await pool.getConnection()
+        const rows = await conn.query("SELECT id, sessionID, CONCAT(firstName,' ',lastName) As name FROM tickets")
+        res.send(JSON.stringify(rows))
+    } catch (error) {
+        console.log(error)
+    } finally{
+        conn.end()
+    }
+})*/
+
+app.listen(port, async ()=>{
+    await require("./db").Sync()
     console.log(`API up at: http://localhost:${port}`)
 })

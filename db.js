@@ -14,9 +14,14 @@ const db = {}
 db.Sequilize = Sequilize
 db.sequelize = sequelize
 
-db.films = require("./models/Film")(sequelize,Sequilize)
+db.films = require("./models/Film.js")(sequelize,Sequilize);
+db.tickets = require("./models/Tickets.js")(sequelize,Sequilize);
 
-//await sequelize.sync({force:true}) // Erase all and recreate
-async () => await sequelize.sync({alter:true}) // Alter existing tables to matc the model
+async function Sync() {
+    console.log("Begin Sync");
+    //await sequelize.sync({force:true}) // Erase all and recreate
+    await sequelize.sync({alter:true}) // Alter existing tables to matc the model
+    console.log("Sync Done");
+}
 
-module.exports = db
+module.exports = { db, Sync };
