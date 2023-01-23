@@ -48,7 +48,7 @@ app.get("/films", async(req,res)=>{
     let conn
     try {
         conn = await pool.getConnection()
-        const rows = await conn.query("SELECT id, name FROM films")
+        const rows = await conn.query("SELECT id, title FROM films")
         res.send(JSON.stringify(rows))
     } catch (error) {
         console.log(error)
