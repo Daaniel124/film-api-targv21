@@ -9,7 +9,12 @@ exports.createNew = async (req,res)=>{
     res.send({"message":"Not ipmlemented yet"})
 }
 exports.getById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    const film = await Films.findByPk(req.params.id)
+    if (film === null) {
+        res.status(404).send({"error":"Film not found"})
+    } else {
+        res.send(film)
+    }
 }
 exports.updateById = async (req,res)=>{
     res.send({"message":"Not ipmlemented yet"})

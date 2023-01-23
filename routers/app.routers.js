@@ -4,11 +4,11 @@ const ticketsController = require("../controllers/TicketsController.js")
 module.exports = (app)=>{
     app.route("/films")
     .get(filmsController.getAll)
-/*    .post(filmsController.createNew)    //Create
+    .post(filmsController.createNew)    //Create
     app.route("/films/:id")
     .get(filmsController.getById)       //Read
     .put(filmsController.updateById)    //Update
-    .delete(filmsController.deleteById) //Delete*/
+    .delete(filmsController.deleteById) //Delete
 
     app.route("/tickets")
     .get(ticketsController.getAll)
