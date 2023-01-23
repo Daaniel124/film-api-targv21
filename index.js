@@ -44,6 +44,19 @@ app.get("/customers", async (req,res)=>{
     }
 })
 
+app.get("/tickets", async (req,res)=>{
+    let conn
+    try {
+        conn = await pool.getConnection()
+        const rows = await conn.query("SELECT id, sessionID, CONCAT(firstName,' ',lastName) As name FROM tickets")
+        res.send(JSON.stringify(rows))
+    } catch (error) {
+        console.log(error)
+    } finally{
+        conn.end()
+    }
+})
+
 app.listen(port,()=>{
     console.log(`API up at: http://localhost:${port}`)
 })
