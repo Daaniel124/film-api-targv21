@@ -8,11 +8,11 @@ module.exports = (app)=>{
     app.ruote("/films/:id")
     .get(filmsController.getById)       //Read
     .put(filmsController.updateById)    //Update
-    .delete(filmsController.deleteById) //Delete
+    .delete(filmsController.deleteById) //Delete*/
 
     app.route("/tickets")
     .get(ticketsController.getAll)
-    .post(ticketsController.createNew)    //Create
+/*    .post(ticketsController.createNew)    //Create
     app.ruote("/tickets/:id")
     .get(ticketsController.getById)       //Read
     .put(ticketsController.updateById)    //Update
