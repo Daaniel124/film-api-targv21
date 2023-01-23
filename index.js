@@ -8,6 +8,8 @@ const swaggerDocument = require('./docs/swagger.json');
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
+require("./routers/app.routers.js")(app)
+
 /*const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -15,13 +17,6 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
     database: process.env.DB_BASE
 })*/
 
-const pool = mariadb.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_BASE,
-    connectionLimit: 5
-})
 /*connection.connect(function(err){
     if(err) throw err
     connection.query("SELECT * FROM customers", 
