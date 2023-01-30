@@ -1,0 +1,184 @@
+openapi: 3.0.2
+info:
+    title: films-api
+    version: 1.0.0
+    description: >-
+        ### This is a Swagger UI for our Films API  \n\n### Error handling\nErrors are presented using the
+        HTTP status codes 400-599. The response include a more detailed explanation about the error in the
+        body.\n\n```\n{\n  \"error\": \"Cleartext explanation of the error that occurred\"\n}\n```\n\n###
+        Generic API errors\nThese error responses can be returned by any of the described endpoints.\n\n| HTTP
+        status  |  Description |\n|---|---|\n| 400| Bad input parameters or invalid request. More information
+        can be found in the response body.\n| 401| The consumer does not have access to the requested resource
+        or the provided token is not valid.\n| 404| The requested resource can not be found or the user does
+        not have access to the resource.\n| 5XX| A server error has occurred while processing the request.
+paths:
+    /films:
+        summary: Get list of all films
+        get:
+            requestBody: {}
+            tags:
+                - films
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                List of films:
+                                    value:
+                                        -
+                                            id: 0
+                                            title: Avatar 2
+                                        -
+                                            id: 1
+                                            title: Titanic
+                    description: Returns a list of films
+            summary: Get a list of all films
+            description: Return a list of all films in API
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/film'
+                required: true
+            tags:
+                - films
+            responses:
+                '201':
+                    headers:
+                        location:
+                            schema:
+                                type: string
+                    description: Film is added
+            summary: Add new film
+            description: 'Add new film with details '
+    /sessions:
+        summary: Get list of all sessions
+        get:
+            tags:
+                - sessions
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                List of sessions:
+                                    value:
+                                        -
+                                            id: 0
+                                            session_date: '2023-01-30'
+                                            session_time: '13:00:00'
+                                            filmID: 1
+                    description: Returns a list of sessions
+            summary: Get a list of all sessions
+            description: Return a list of all sessions in API
+    /tickets:
+        summary: Get list of all tickets
+        get:
+            tags:
+                - tickets
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                List of tickets:
+                                    value:
+                                        -
+                                            id: 0
+                                            firstName: Petr
+                                            lastName: Petrov
+                                            session: 0
+                    description: Returns a list of tickets
+            summary: Get a list of all tickets
+            description: Return a list of all tickets in API
+    '/films/{id}':
+        summary: Get film Details
+        get:
+            tags:
+                - films
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Film details:
+                                    value:
+                                        -
+                                            id: 1
+                                            title: Avatar 2
+                                            genre: Adventure
+                                            duration: '03:00:00'
+                                            producer: Jim Kerry
+                                            actors: Jim Kerry
+                                            description: Avatar 2
+                    description: Film was found and the details are returned
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Not found:
+                                    value:
+                                        error: Film with the given id was not found
+                    description: Film with the given id does not exist
+            summary: Get details of the film with given ID
+            description: Return all details of the film with given ID
+        parameters:
+            -
+                name: id
+                description: id of film to get the details
+                schema:
+                    type: integer
+                in: path
+                required: true
+components:
+    schemas:
+        error:
+            description: ''
+            type: object
+        film:
+            title: Root Type for film
+            description: Film details
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                title:
+                    type: string
+                genre:
+                    type: string
+                duration:
+                    type: integer
+                producer:
+                    type: string
+                actors:
+                    type: string
+                description:
+                    type: string
+            example:
+                id: 1
+                title: Avatar
+                genre: adventure
+                duration: '3:00:00'
+                producer: Jim Kerry
+                actors: Jim Kerry
+                description: avatar!!!

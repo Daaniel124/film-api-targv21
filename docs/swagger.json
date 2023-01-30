@@ -7,6 +7,7 @@
     },
     "paths": {
         "/films": {
+            "summary": "Get list of all films",
             "get": {
                 "tags": [
                     "films"
@@ -45,6 +46,7 @@
             }
         },
         "/sessions": {
+            "summary": "Get list of all sessions",
             "get": {
                 "tags": [
                     "sessions"
@@ -81,6 +83,7 @@
             }
         },
         "/tickets": {
+            "summary": "Get list of all tickets",
             "get": {
                 "tags": [
                     "tickets"
@@ -114,6 +117,82 @@
                 },
                 "summary": "Get a list of all tickets",
                 "description": "Return a list of all tickets in API"
+            }
+        },
+        "/films/{id}": {
+            "summary": "Get film Details",
+            "get": {
+                "tags": [
+                    "film"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "Film details": {
+                                        "value": [
+                                            {
+                                                "id": 1,
+                                                "title": "Avatar 2",
+                                                "genre": "Adventure",
+                                                "duration": "03:00:00",
+                                                "producer": "Jim Kerry",
+                                                "actors": "Jim Kerry",
+                                                "description": "Avatar 2"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Film was found and the details are returned"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Not found": {
+                                        "value": {
+                                            "error": "Film with the given id \\w+ was not found"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Film with the given id does not exist"
+                    }
+                },
+                "summary": "Get details of the film with given ID",
+                "description": "Return all details of the film with given ID"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "id of film to get the details",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "description": "",
+                "type": "object"
             }
         }
     }

@@ -1,12 +1,17 @@
 require("dotenv").config()
-const app = require("express")()
+const express = require("express")
+const app = express()
 //const mysql = require("mysql")
 const mariadb = require("mariadb")
 const port = process.env.APP_PORT
 const swaggerUI = require('swagger-ui-express')
-const swaggerDocument = require('./docs/swagger.json');
+//const swaggerDocument = require('./docs/swagger.json');
+const yamljs = require("yamljs")
+const swaggerDocument = yamljs.load("./docs/swagger.yaml")
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.use(express.json())
+
 
 require("./routers/app.routers.js")(app)
 
