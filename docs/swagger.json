@@ -23,7 +23,16 @@
                                 },
                                 "examples": {
                                     "List of films": {
-                                        "value": "[\n    \"id\" : 0,\n    \"title\" : \"Avatar 2\",\n    \"genre\" : \"Adventure\",\n    \"duration\" : \"3:00:00\",\n    \"producer\" : \"Jim Kerry\",\n    \"actors\" : \"Jim Kerry\",\n    \"description\" : \"Avatar 2\"\n]"
+                                        "value": [
+                                            {
+                                                "id": 0,
+                                                "title": "Avatar 2"
+                                            },
+                                            {
+                                                "id": 1,
+                                                "title": "Titanic"
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -52,7 +61,14 @@
                                 },
                                 "examples": {
                                     "List of sessions": {
-                                        "value": "[\n    \"id\" : 0,\n    \"session_date\" : \"2023-01-30\",\n    \"session_time\" : \"13:00:00\",\n    \"hall\" : 1,\n    \"language\" : \"Eng\",\n    \"filmID\" : 1\n]"
+                                        "value": [
+                                            {
+                                                "id": 0,
+                                                "session_date": "2023-01-30",
+                                                "session_time": "13:00:00",
+                                                "filmID": 1
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -81,7 +97,14 @@
                                 },
                                 "examples": {
                                     "List of tickets": {
-                                        "value": "[\n    \"id\" : 0,\n    \"firstName\" : \"Petr\",\n    \"lastName\" : \"Petrov\",\n    \"row\" : 5,\n    \"columnNumber\" : 13,\n    \"price\" : 5.50\n]"
+                                        "value": [
+                                            {
+                                                "id": 0,
+                                                "firstName": "Petr",
+                                                "lastName": "Petrov",
+                                                "session": 0
+                                            }
+                                        ]
                                     }
                                 }
                             }
