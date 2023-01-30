@@ -23,10 +23,7 @@
                                 },
                                 "examples": {
                                     "List of films": {
-                                        "value": [
-                                            "Avatar 2",
-                                            "Titanic"
-                                        ]
+                                        "value": "[\n    \"id\" : 0,\n    \"title\" : \"Avatar 2\",\n    \"genre\" : \"Adventure\",\n    \"duration\" : \"3:00:00\",\n    \"producer\" : \"Jim Kerry\",\n    \"actors\" : \"Jim Kerry\",\n    \"description\" : \"Avatar 2\"\n]"
                                     }
                                 }
                             }
@@ -34,7 +31,66 @@
                         "description": "Returns a list of films"
                     }
                 },
+                "summary": "Get a list of all films",
                 "description": "Return a list of all films in API"
+            }
+        },
+        "/sessions": {
+            "get": {
+                "tags": [
+                    "sessions"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "List of sessions": {
+                                        "value": "[\n    \"id\" : 0,\n    \"session_date\" : \"2023-01-30\",\n    \"session_time\" : \"13:00:00\",\n    \"hall\" : 1,\n    \"language\" : \"Eng\",\n    \"filmID\" : 1\n]"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns a list of sessions"
+                    }
+                },
+                "summary": "Get a list of all sessions",
+                "description": "Return a list of all sessions in API"
+            }
+        },
+        "/tickets": {
+            "get": {
+                "tags": [
+                    "tickets"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "List of tickets": {
+                                        "value": "[\n    \"id\" : 0,\n    \"firstName\" : \"Petr\",\n    \"lastName\" : \"Petrov\",\n    \"row\" : 5,\n    \"columnNumber\" : 13,\n    \"price\" : 5.50\n]"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns a list of tickets"
+                    }
+                },
+                "summary": "Get a list of all tickets",
+                "description": "Return a list of all tickets in API"
             }
         }
     }
