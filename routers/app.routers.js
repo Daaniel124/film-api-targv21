@@ -1,5 +1,6 @@
 const filmsController = require("../controllers/FilmsController.js")
 const ticketsController = require("../controllers/TicketsController.js")
+const sessionsController = require("../controllers/SessionsController.js")
 
 module.exports = (app)=>{
     app.route("/films")
@@ -17,4 +18,12 @@ module.exports = (app)=>{
     .get(ticketsController.getById)       //Read
     .put(ticketsController.updateById)    //Update
     .delete(ticketsController.deleteById) //Delete
+
+    app.route("/sessions")
+    .get(sessionsController.getAll)
+    .post(sessionsController.createNew)    //Create
+    app.route("/sessions/:id")
+    .get(sessionsController.getById)       //Read
+    .put(sessionsController.updateById)    //Update
+    .delete(sessionsController.deleteById) //Delete
 }

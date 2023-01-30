@@ -15,7 +15,8 @@ db.Sequilize = Sequilize
 db.sequelize = sequelize
 
 db.films = require("./models/Film.js")(sequelize,Sequilize);
-db.tickets = require("./models/Tickets.js")(sequelize,Sequilize);
+db.tickets = require("./models/Tickets.js")(sequelize,Sequilize, db.sessions);
+db.sessions = require("./models/Session.js")(sequelize,Sequilize, db.films);
 
 async function Sync() {
     console.log("Begin Sync");
