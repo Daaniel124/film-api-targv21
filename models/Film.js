@@ -8,10 +8,12 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         title: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         genre: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         duration: {
             type: Sequelize.DataTypes.TIME

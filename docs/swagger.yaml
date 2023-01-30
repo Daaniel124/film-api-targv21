@@ -53,7 +53,24 @@ paths:
                         location:
                             schema:
                                 type: string
+                            examples:
+                                Response:
+                                    value: 'https://server:port/films/{id}'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/film'
                     description: Film is added
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Invalid data:
+                                    value:
+                                        error: 'Invalid input, missing required parametr'
+                    description: Invalid data suplied
             summary: Add new film
             description: 'Add new film with details '
     /sessions:
