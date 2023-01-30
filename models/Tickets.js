@@ -1,7 +1,5 @@
-const { TIME } = require("sequelize")
-
-module.exports = (sequelize, Sequelize) => {
-    const Ticket = sequelize.define("tickets", {
+module.exports = (sequelize, Sequelize, sessions) => {
+    const tickets = sequelize.define("tickets", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -21,8 +19,16 @@ module.exports = (sequelize, Sequelize) => {
         },
         price: {
             type: Sequelize.INTEGER
+        },
+        sessionID: {
+            type: Sequelize.INTEGER,
+            references:{
+                model: sessions,
+                key: "id"
+            }
         }
     })
-
-    return Ticket
+    sessions.hasMany(tickets, {foreignKey: 'sessionID'})
+    tickets.belongsTo(sessions, {foreignKey: 'sessionID'})
+    return tickets
 }

@@ -1,7 +1,5 @@
-const { TIME } = require("sequelize")
-
 module.exports = (sequelize, Sequelize) => {
-    const Film = sequelize.define("films", {
+    const films = sequelize.define("films", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -29,5 +27,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     })
 
-    return Film
+    return films
 }
