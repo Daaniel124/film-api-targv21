@@ -166,6 +166,112 @@ paths:
                     type: integer
                 in: path
                 required: true
+    '/sessions/{id}/':
+        summary: Get session Details
+        get:
+            tags:
+                - sessions
+            parameters:
+                -
+                    name: id
+                    description: id of session to get the details
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Ticket details:
+                                    value:
+                                        -
+                                            id: 0
+                                            session_date: '2023-01-30'
+                                            session_time: '13:00:00'
+                                            filmID: 1
+                                            hall: 3
+                                            language: eng
+                    description: Session was found and the details are returned
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Not found:
+                                    value:
+                                        error: Session with the given id was not found
+                    description: Session with the given id does not exist
+            summary: Get details of the session with given ID
+            description: Return all details of the session with given ID
+        parameters:
+            -
+                name: id
+                description: id of film to get the details
+                schema:
+                    type: integer
+                in: path
+                required: true
+    '/tickets/{id}/':
+        summary: Get ticket Details
+        get:
+            tags:
+                - tickets
+            parameters:
+                -
+                    name: id
+                    description: id of ticket to get the details
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Ticket details:
+                                    value:
+                                        -
+                                            id: 0
+                                            sessionID: 1
+                                            filmNameID: 2
+                                            firstName: Daaniel
+                                            secondName: Loginov
+                                            row: 4
+                                            columnNumber: 3
+                                            price: '5.90'
+                    description: ticket was found and the details are returned
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Not found:
+                                    value:
+                                        error: Ticket with the given id was not found
+                    description: Ticket with the given id does not exist
+            summary: Get details of the ticket with given ID
+            description: Return all details of the ticket with given ID
+        parameters:
+            -
+                name: id
+                description: id of ticket to get the details
+                schema:
+                    type: integer
+                in: path
+                required: true
 components:
     schemas:
         error:
