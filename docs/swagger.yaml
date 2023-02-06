@@ -15,7 +15,6 @@ paths:
     /films:
         summary: Get list of all films
         get:
-            requestBody: {}
             tags:
                 - films
             responses:
@@ -158,6 +157,52 @@ paths:
                     description: Film with the given id does not exist
             summary: Get details of the film with given ID
             description: Return all details of the film with given ID
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/film'
+                required: true
+            tags:
+                - films
+            responses:
+                '200':
+                    headers:
+                        Location:
+                            schema:
+                                type: string
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/film'
+                    description: Film was updated
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Missing required fields
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Film not found
+            summary: Update film
+        delete:
+            tags:
+                - films
+            responses:
+                '204':
+                    description: Film deleted
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Film not found
+            summary: Remove film
         parameters:
             -
                 name: id
