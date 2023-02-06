@@ -1,4 +1,5 @@
 const { db } = require("../db");
+const { getBaseUrl } = require("./helpers")
 const Sessions = db.sessions
 
 exports.getAll = async (req,res)=>{
@@ -14,7 +15,12 @@ exports.createNew = async (req,res)=>{
     res.send({"message":"Not ipmlemented yet"})
 }
 exports.getById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    const session = await Sessions.findByPk(req.params.id, {logging: console.log})
+    if (session === null) {
+        res.status(404).send({"error":"Film not found"})
+    } else {
+        res.send(session)
+    }
 }
 exports.updateById = async (req,res)=>{
     res.send({"message":"Not ipmlemented yet"})
