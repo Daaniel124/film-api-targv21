@@ -1,6 +1,5 @@
 const { db } = require("../db");
 const { getBaseUrl } = require("./helpers")
-const Film = require("../models/Film");
 const Films = db.films
 
 exports.getAll = async (req,res)=>{
