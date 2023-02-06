@@ -96,6 +96,41 @@ paths:
                     description: Returns a list of sessions
             summary: Get a list of all sessions
             description: Return a list of all sessions in API
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/film'
+                required: true
+            tags:
+                - sessions
+            responses:
+                '201':
+                    headers:
+                        location:
+                            schema:
+                                type: string
+                            examples:
+                                Response:
+                                    value: 'https://server:port/sessions/{id}'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/session'
+                    description: Session is added
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Invalid data:
+                                    value:
+                                        error: 'Invalid input, missing required parametr'
+                    description: Invalid data suplied
+            summary: Add new session
+            description: 'Add new session with details '
     /tickets:
         summary: Get list of all tickets
         get:
@@ -120,6 +155,41 @@ paths:
                     description: Returns a list of tickets
             summary: Get a list of all tickets
             description: Return a list of all tickets in API
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ticket'
+                required: true
+            tags:
+                - tickets
+            responses:
+                '201':
+                    headers:
+                        location:
+                            schema:
+                                type: string
+                            examples:
+                                Response:
+                                    value: 'https://server:port/tickets/{id}'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ticket'
+                    description: Ticket is added
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Invalid data:
+                                    value:
+                                        error: 'Invalid input, missing required parametr'
+                    description: Invalid data suplied
+            summary: Add new ticket
+            description: 'Add new ticket with details '
     '/films/{id}':
         summary: Get film Details
         get:
@@ -255,6 +325,52 @@ paths:
                     description: Session with the given id does not exist
             summary: Get details of the session with given ID
             description: Return all details of the session with given ID
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/session'
+                required: true
+            tags:
+                - sessions
+            responses:
+                '200':
+                    headers:
+                        Location:
+                            schema:
+                                type: string
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/session'
+                    description: Session was updated
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Missing required fields
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Session not found
+            summary: Update session
+        delete:
+            tags:
+                - sessions
+            responses:
+                '204':
+                    description: Session deleted
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Session not found
+            summary: Remove session
         parameters:
             -
                 name: id
@@ -309,6 +425,52 @@ paths:
                     description: Ticket with the given id does not exist
             summary: Get details of the ticket with given ID
             description: Return all details of the ticket with given ID
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ticket'
+                required: true
+            tags:
+                - tickets
+            responses:
+                '200':
+                    headers:
+                        Location:
+                            schema:
+                                type: string
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ticket'
+                    description: Ticket was updated
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Missing required fields
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Ticket not found
+            summary: Update ticket
+        delete:
+            tags:
+                - tickets
+            responses:
+                '204':
+                    description: Ticket deleted
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Ticket not found
+            summary: Remove ticket
         parameters:
             -
                 name: id
@@ -350,3 +512,55 @@ components:
                 producer: Jim Kerry
                 actors: Jim Kerry
                 description: avatar!!!
+        session:
+            title: Root Type for session
+            description: Session details
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                session_date:
+                    format: date
+                    type: string
+                session_time:
+                    type: string
+                hall:
+                    format: int32
+                    type: integer
+                language:
+                    type: string
+            example:
+                id: 1
+                session_date: '2023-01-01'
+                session_time: '01:00:00'
+                hall: 3
+                language: eng
+        ticket:
+            title: Root Type for ticket
+            description: Ticket details
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                firstName:
+                    type: string
+                lastName:
+                    type: string
+                row:
+                    format: int32
+                    type: integer
+                columnNumber:
+                    format: int32
+                    type: integer
+                price:
+                    format: double
+                    type: number
+            example:
+                id: 1
+                firstName: Daaniel
+                lastName: Loginov
+                row: 4
+                columnNumber: 5
+                price: 5.9
