@@ -1,18 +1,57 @@
 const { db } = require("../db");
 const { getBaseUrl } = require("./helpers")
 const Sessions = db.sessions
+const Film = db.films
 
-exports.getAll = async (req,res)=>{
+/*exports.getAll = async (req,res)=>{
     const sessions = await Sessions.findAll({attributes:["id", "session_date", "session_time"]})
     if (sessions.length == 0) {
         res.send({"message":"No sessions exist"}).end()
     } else {
         res.send(JSON.stringify(sessions))
     }
+}*/
+exports.getAll = async (req,res) =>{
+    const sessions = await Sessions.findAll({
+        include: { all: true},
+        //include: { model: Film, as: "filmName" },
+        logging: console.log
+    })
+    let result = []
+    result = sessions.map( (gp) => {
+        return {
+            "filmName": gp.film.title,
+            "tickets": gp.tickets.length,
+            "session_time": gp.session_time,
+            "session_date": gp.session_date
+            /*"playerName": `${gp.Player.firstName} ${gp.Player.lastName}`,
+            "playTime": gp.playTimeMinutes*/
+        }
+    })
+    res.send(result)
+    //res.send(sessions)
 }
 
 exports.createNew = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    let session
+    try {
+        session = await Sessions.create(req.body,
+        {
+            logging:console.log,
+            fields:["session_date", "session_time", "hall", "language"]
+        })
+    } catch (error) {
+        if (error instanceof db.Sequilize.ValidationError) {
+            res.status(400).send({"error":error.errors.map((item)=> item.message)})
+        } else {
+            console.log("SessionsCreate:",error)
+            res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        }
+        return 
+    }
+    res.status(201)
+        .location(`${getBaseUrl(req)}/sessions/${session.id}`)
+        .json(session)
 }
 exports.getById = async (req,res)=>{
     const session = await Sessions.findByPk(req.params.id, {logging: console.log})
