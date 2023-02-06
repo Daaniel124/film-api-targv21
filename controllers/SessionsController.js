@@ -17,7 +17,7 @@ exports.createNew = async (req,res)=>{
 exports.getById = async (req,res)=>{
     const session = await Sessions.findByPk(req.params.id, {logging: console.log})
     if (session === null) {
-        res.status(404).send({"error":"Film not found"})
+        res.status(404).send({"error":"Session not found"})
     } else {
         res.send(session)
     }
