@@ -101,7 +101,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/film'
+                            $ref: '#/components/schemas/session'
                 required: true
             tags:
                 - sessions
