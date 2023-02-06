@@ -62,5 +62,16 @@ exports.updateById = async (req,res)=>{
         .json(film)
 }
 exports.deleteById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    const film = await Films.findByPk(req.params.id, {logging: console.log})
+    if (film === null) {
+        res.status(404).send({"error":"Film not found"})
+        return
+    } try {
+        const deleted = await film.destroy() 
+    } catch (error) {
+        console.log("FilmDelete:", error)
+        res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        return
+    }
+    res.status(204).send()
 }
