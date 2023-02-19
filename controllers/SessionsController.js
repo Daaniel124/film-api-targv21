@@ -69,7 +69,29 @@ exports.getById = async (req,res)=>{
     }
 }
 exports.updateById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    let session = await Sessions.findByPk(req.params.id, {logging: console.log})
+    if (session === null) {
+        res.status(404).send({"error":"Session not found"})
+        return
+    }  
+    try {
+        session = await session.update(req.body,
+        {
+            where: { id: req.params.id},
+            logging:console.log
+        })
+    } catch (error) {
+        if (error instanceof db.Sequilize.ValidationError) {
+            res.status(400).send({"error":error.errors.map((item)=> item.message)})
+        } else {
+            console.log("SessionUpdate:",error)
+            res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        }
+        return 
+    }
+    res.status(200)
+        .location(`${getBaseUrl(req)}/sessions/${session.id}`)
+        .json(session)
 }
 exports.deleteById = async (req,res)=>{
     const session = await Sessions.findByPk(req.params.id, {logging: console.log})
