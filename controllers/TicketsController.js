@@ -55,7 +55,17 @@ exports.createNew = async (req,res)=>{
         .json(ticket)
 }
 exports.getById = async (req,res)=>{
-    const ticket = await Tickets.findByPk(req.params.id, {logging: console.log})
+    const ticket = await Tickets.findByPk(req.params.id, {
+        logging: console.log,
+        include: {
+          model: Sessions,
+          attributes: ["filmID", "session_time", "session_date"],
+          include: {
+            model: Film,
+            attributes: ["title"]
+          }
+        }
+      })
     if (ticket === null) {
         res.status(404).send({"error":"Ticket not found"})
     } else {

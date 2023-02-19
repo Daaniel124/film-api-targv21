@@ -406,14 +406,19 @@ paths:
                                 Ticket details:
                                     value:
                                         -
-                                            id: 0
-                                            sessionID: 1
-                                            filmNameID: 2
+                                            id: 2
                                             firstName: Daaniel
-                                            secondName: Loginov
-                                            row: 4
-                                            columnNumber: 3
-                                            price: '5.90'
+                                            lastName: Loginov
+                                            row: 5
+                                            columnNumber: 7
+                                            price: 6
+                                            sessionID: 2
+                                            movie_session:
+                                                filmID: 10
+                                                session_time: '01:00:00'
+                                                session_date: '2023-01-01T00:00:00.000Z'
+                                                film:
+                                                    title: Avatar 5
                     description: ticket was found and the details are returned
                 '404':
                     content:
