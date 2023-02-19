@@ -66,5 +66,16 @@ exports.updateById = async (req,res)=>{
     res.send({"message":"Not ipmlemented yet"})
 }
 exports.deleteById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    const ticket = await Tickets.findByPk(req.params.id, {logging: console.log})
+    if (ticket === null) {
+        res.status(404).send({"error":"Ticket not found"})
+        return
+    } try {
+        const deleted = await ticket.destroy() 
+    } catch (error) {
+        console.log("TicketDelete:", error)
+        res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        return
+    }
+    res.status(204).send({"message": "Ticket deleted"})
 }
