@@ -55,7 +55,13 @@ exports.createNew = async (req,res)=>{
         .json(session)
 }
 exports.getById = async (req,res)=>{
-    const session = await Sessions.findByPk(req.params.id, {logging: console.log})
+    const session = await Sessions.findByPk(req.params.id, {
+        logging: console.log,
+        include: {
+          model: Film,
+          attributes: ["title"]
+        }
+      })
     if (session === null) {
         res.status(404).send({"error":"Session not found"})
     } else {
