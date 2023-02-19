@@ -38,7 +38,7 @@ exports.createNew = async (req,res)=>{
         session = await Sessions.create(req.body,
         {
             logging:console.log,
-            fields:["session_date", "session_time", "hall", "language"]
+            fields:["session_date", "session_time", "hall", "language", "filmID"]
         })
     } catch (error) {
         if (error instanceof db.Sequilize.ValidationError) {
