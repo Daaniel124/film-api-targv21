@@ -72,5 +72,16 @@ exports.updateById = async (req,res)=>{
     res.send({"message":"Not ipmlemented yet"})
 }
 exports.deleteById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    const session = await Sessions.findByPk(req.params.id, {logging: console.log})
+    if (session === null) {
+        res.status(404).send({"error":"Session not found"})
+        return
+    } try {
+        const deleted = await session.destroy() 
+    } catch (error) {
+        console.log("SessionDelete:", error)
+        res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        return
+    }
+    res.status(204).send({"message": "Session deleted"})
 }
