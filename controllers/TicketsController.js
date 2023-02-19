@@ -24,7 +24,7 @@ exports.getAll = async (req,res) =>{
             "id": gp.id,
             "firstName": gp.firstName,
             "lastName": gp.lastName,
-            "session": gp.sessionID,
+            "sessionID": gp.sessionID,
             "filmID": gp.movie_session.filmID,
             "session_time": gp.movie_session.session_time,
             "session_date": gp.movie_session.session_date
@@ -73,7 +73,29 @@ exports.getById = async (req,res)=>{
     }
 }
 exports.updateById = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    let ticket = await Tickets.findByPk(req.params.id, {logging: console.log})
+    if (ticket === null) {
+        res.status(404).send({"error":"Ticket not found"})
+        return
+    }  
+    try {
+        ticket = await ticket.update(req.body,
+        {
+            where: { id: req.params.id},
+            logging:console.log
+        })
+    } catch (error) {
+        if (error instanceof db.Sequilize.ValidationError) {
+            res.status(400).send({"error":error.errors.map((item)=> item.message)})
+        } else {
+            console.log("TicketUpdate:",error)
+            res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        }
+        return 
+    }
+    res.status(200)
+        .location(`${getBaseUrl(req)}/tickets/${ticket.id}`)
+        .json(ticket)
 }
 exports.deleteById = async (req,res)=>{
     const ticket = await Tickets.findByPk(req.params.id, {logging: console.log})
