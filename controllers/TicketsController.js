@@ -1,6 +1,8 @@
 const { db } = require("../db");
 const { getBaseUrl } = require("./helpers")
 const Tickets = db.tickets
+const Sessions = db.sessions
+const Film = db.films
 
 /*exports.getAll = async (req,res)=>{
     const tickets = await Tickets.findAll({attributes:["id", "firstName"]})
@@ -16,15 +18,19 @@ exports.getAll = async (req,res) =>{
         include: { all: true},
         logging: console.log
     })
-    /*let result = []
+    let result = []
     result = tickets.map( (gp) => {
         return {
-            "gameName": gp.Game.name,
-            "playerName": `${gp.Player.firstName} ${gp.Player.lastName}`,
-            "playTime": gp.playTimeMinutes
+            "id": gp.id,
+            "firstName": gp.firstName,
+            "lastName": gp.lastName,
+            "session": gp.sessionID,
+            "filmID": gp.movie_session.filmID,
+            "session_time": gp.movie_session.session_time,
+            "session_date": gp.movie_session.session_date
         }
     })
-    res.send(result)*/
+    res.send(result)
 }
 
 exports.createNew = async (req,res)=>{
