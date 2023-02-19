@@ -20,6 +20,7 @@ exports.getAll = async (req,res) =>{
     let result = []
     result = sessions.map( (gp) => {
         return {
+            "id": gp.id,
             "filmName": gp.film.title,
             "tickets": gp.tickets.length,
             "session_time": gp.session_time,
@@ -38,7 +39,7 @@ exports.createNew = async (req,res)=>{
         session = await Sessions.create(req.body,
         {
             logging:console.log,
-            fields:["session_date", "session_time", "hall", "language"]
+            fields:["session_date", "session_time", "hall", "language", "filmID"]
         })
     } catch (error) {
         if (error instanceof db.Sequilize.ValidationError) {

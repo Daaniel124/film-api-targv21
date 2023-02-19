@@ -536,6 +536,7 @@ components:
                 session_time: '01:00:00'
                 hall: 3
                 language: eng
+                filmID: 2
         ticket:
             title: Root Type for ticket
             description: Ticket details
