@@ -34,7 +34,25 @@ exports.getAll = async (req,res) =>{
 }
 
 exports.createNew = async (req,res)=>{
-    res.send({"message":"Not ipmlemented yet"})
+    let ticket
+    try {
+        ticket = await Tickets.create(req.body,
+        {
+            logging:console.log,
+            fields:["firstName", "lastName", "row", "columnNumber", "price", "sessionID"]
+        })
+    } catch (error) {
+        if (error instanceof db.Sequilize.ValidationError) {
+            res.status(400).send({"error":error.errors.map((item)=> item.message)})
+        } else {
+            console.log("TicketCreate:",error)
+            res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        }
+        return 
+    }
+    res.status(201)
+        .location(`${getBaseUrl(req)}/tickets/${ticket.id}`)
+        .json(ticket)
 }
 exports.getById = async (req,res)=>{
     const ticket = await Tickets.findByPk(req.params.id, {logging: console.log})

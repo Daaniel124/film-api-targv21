@@ -151,7 +151,9 @@ paths:
                                             id: 0
                                             firstName: Petr
                                             lastName: Petrov
-                                            session: 0
+                                            filmID: 10
+                                            session_time: '01:00:00'
+                                            session_date: '2023-01-01T00:00:00.000Z'
                     description: Returns a list of tickets
             summary: Get a list of all tickets
             description: Return a list of all tickets in API
@@ -565,3 +567,4 @@ components:
                 row: 4
                 columnNumber: 5
                 price: 5.9
+                sessionID: 2
