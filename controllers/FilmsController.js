@@ -6,6 +6,7 @@ exports.getAll = async (req,res)=>{
     const films = await Films.findAll({attributes:["id", "title"]})
     res.send(JSON.stringify(films))
 }
+
 exports.createNew = async (req,res)=>{
     let film
     try {
