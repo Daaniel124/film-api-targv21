@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const app = express()
+const cors = require("cors")
 //const mysql = require("mysql")
 const mariadb = require("mariadb")
 const port = process.env.APP_PORT
@@ -11,6 +12,11 @@ const swaggerDocument = yamljs.load("./docs/swagger.yaml")
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 app.use(express.json())
+const corsOptions = {
+    origin: "http://localhost:5173"
+}
+
+app.use(cors(corsOptions))
 
 
 require("./routers/app.routers.js")(app)
